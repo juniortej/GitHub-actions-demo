@@ -48,7 +48,10 @@ jobs:
 
   dependency-submission:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # determines the OS of where the job will run. 
+    strategy: #using if we want to test on different OS - so the build will be done on different OS
+        matrix:
+            os: [macos-lastest, ubuntu-lastest]
     permissions:
       contents: write
 
@@ -64,3 +67,7 @@ jobs:
     # See: https://github.com/gradle/actions/blob/main/dependency-submission/README.md
     - name: Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+
+   publish: # Publish will run after build here 
+
+    needs: build
